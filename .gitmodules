@@ -1,3 +1,6 @@
 [submodule "flakes"]
 	path = flakes
 	url = git@github.com:levenrok/flakes.git
+[submodule "config"]
+	path = config
+	url = git@github.com:levenrok/.dotfiles.git
