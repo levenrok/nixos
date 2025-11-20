@@ -85,6 +85,7 @@ in
       nixd
       lua-language-server
       bash-language-server
+      gopls
       yaml-language-server
       taplo
       # Formatter
