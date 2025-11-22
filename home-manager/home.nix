@@ -12,7 +12,7 @@ in
     username = "${user}";
     homeDirectory = "${home}";
     packages = with pkgs; [
-      dbeaver-bin
+      dbgate
     ];
   };
   home.stateVersion = "25.05";
