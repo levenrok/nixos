@@ -13,7 +13,11 @@ in
     homeDirectory = "${home}";
     packages = with pkgs; [
       dbgate
+      protonup
     ];
+    sessionVariables = {
+      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+    };
   };
   home.stateVersion = "25.05";
 

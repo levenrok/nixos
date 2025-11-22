@@ -32,7 +32,6 @@ in
 
   hardware = {
     graphics.enable = true;
-    nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   };
 
   services.xserver.xkb = {
@@ -85,6 +84,13 @@ in
   nixpkgs.config.allowUnfree = true;
 
   programs.firefox.enable = false;
+
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
+
+  programs.gamemode.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
