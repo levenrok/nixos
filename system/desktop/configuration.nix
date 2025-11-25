@@ -99,7 +99,6 @@ in
     curl
 
     gcc
-    clang-tools
     go-task
 
     ripgrep
