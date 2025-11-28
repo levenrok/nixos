@@ -108,12 +108,29 @@ in
     mutableExtensionsDir = true;
     profiles.default = {
       userSettings = {
+        "[php]" = {
+          "editor.defaultFormatter" = "laravel.vscode-laravel";
+        };
         "editor.fontSize" = 17;
         "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
+        "editor.fontLigatures" = true;
         "editor.linkedEditing" = true;
         "editor.minimap.enabled" = false;
+        "emmet.includeLanguages" = {
+          "blade" = "html";
+        };
+        "extensions.experimental.affinity" = {
+          "vscodevim.vim" = 1;
+        };
         "git.enableCommitSigning" = true;
         "git.followTagsWhenSync" = true;
+        "terminal.integrated.fontLigatures.enabled" = true;
+        "vim.leader" = "<space>";
+        "vim.handleKeys" = {
+          "<C-b>" = false;
+          "<C-p>" = false;
+        };
+        "vim.useSystemClipboard" = true;
         "workbench.activityBar.location" = "top";
         "window.autoDetectColorScheme" = true;
         "workbench.iconTheme" = "catppuccin-latte";
@@ -126,11 +143,14 @@ in
         bierner.github-markdown-preview
         bmewburn.vscode-intelephense-client
         catppuccin.catppuccin-vsc-icons
+        dbaeumer.vscode-eslint
         editorconfig.editorconfig
         enkia.tokyo-night
-        usernamehw.errorlens
+        esbenp.prettier-vscode
         redhat.ansible
         redhat.vscode-yaml
+        usernamehw.errorlens
+        vscodevim.vim
         xdebug.php-debug
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
@@ -138,6 +158,12 @@ in
           publisher = "laravel";
           version = "1.2.1";
           sha256 = "8e8eaae632543ccf366c32babf68271f41d46cab12b7d0d245a743e6bdbb45ed";
+        }
+        {
+          name = "vscode-blade-formatter";
+          publisher = "shufo";
+          version = "0.26.2";
+          sha256 = "a7449e76198004f4972973b89d9e98536cbf2081b1c3382d7d703003ba25873e";
         }
       ];
     };
