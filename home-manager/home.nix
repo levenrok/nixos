@@ -13,13 +13,15 @@ in
     homeDirectory = "${home}";
     packages = with pkgs; [
       dbgate
+      gemini-cli
+
       protonup
     ];
     sessionVariables = {
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
     };
+    stateVersion = "25.05";
   };
-  home.stateVersion = "25.05";
 
   programs.gpg.enable = true;
 
@@ -35,16 +37,6 @@ in
     nix-direnv.enable = true;
   };
 
-  xdg.configFile."bat" = {
-    source = config_dotfiles "${dotfiles}/bat";
-    recursive = true;
-  };
-
-  xdg.configFile."mc/ini" = {
-    source = config_dotfiles "${dotfiles}/mc/ini";
-    recursive = false;
-  };
-
   programs.gnome-shell = {
     enable = true;
     extensions = [
@@ -54,14 +46,7 @@ in
     ];
   };
 
-  programs.google-chrome.enable = true;
-
   programs.starship.enable = true;
-
-  xdg.configFile."starship.toml" = {
-    source = config_dotfiles "${dotfiles}/starship.toml";
-    recursive = false;
-  };
 
   programs.ghostty = {
     enable = true;
@@ -77,11 +62,6 @@ in
     };
   };
 
-  xdg.configFile."eza/theme.yml" = {
-    source = config_dotfiles "${dotfiles}/eza-theme.yml";
-    recursive = false;
-  };
-
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [
@@ -91,6 +71,8 @@ in
       bash-language-server
       yaml-language-server
       taplo
+      docker-language-server
+      nginx-language-server
       # Formatter
       nixpkgs-fmt
       stylua
@@ -98,9 +80,27 @@ in
     ];
   };
 
-  xdg.configFile."nvim" = {
-    source = config_dotfiles "${dotfiles}/nvim";
-    recursive = true;
+  xdg.configFile = {
+    "bat" = {
+      source = config_dotfiles "${dotfiles}/bat";
+      recursive = true;
+    };
+    "mc/ini" = {
+      source = config_dotfiles "${dotfiles}/mc/ini";
+      recursive = false;
+    };
+    "starship.toml" = {
+      source = config_dotfiles "${dotfiles}/starship.toml";
+      recursive = false;
+    };
+    "eza/theme.yml" = {
+      source = config_dotfiles "${dotfiles}/eza-theme.yml";
+      recursive = false;
+    };
+    "nvim" = {
+      source = config_dotfiles "${dotfiles}/nvim";
+      recursive = true;
+    };
   };
 
   programs.vscode = {
