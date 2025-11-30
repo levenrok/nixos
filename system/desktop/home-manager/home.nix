@@ -11,12 +11,13 @@ in
   home = {
     username = "${user}";
     homeDirectory = "${home}";
-    packages = with pkgs; [
+    packages = (with pkgs; [
       dbgate
-      gemini-cli
 
       protonup
-    ];
+    ]) ++ (with pkgs-unstable; [
+      opencode
+    ]);
     sessionVariables = {
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
     };
@@ -46,15 +47,22 @@ in
     ];
   };
 
-  programs.starship.enable = true;
+  programs.starship = {
+    enable = true;
+    package = pkgs-unstable.starship;
+  };
 
   programs.ghostty = {
     enable = true;
+    package = pkgs-unstable.ghostty;
     enableBashIntegration = true;
     settings = {
-      theme = "light:tokyonight-day,dark:tokyonight_night";
+      theme = "light:TokyoNight Day,dark:TokyoNight";
       font-family = "JetBrainsMono Nerd Font Mono";
       font-size = "14";
+
+      window-width = "132";
+      window-height = "28";
 
       cursor-style = "bar";
 
