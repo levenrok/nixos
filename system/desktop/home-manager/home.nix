@@ -60,18 +60,6 @@ in
     enable = true;
     package = pkgs-unstable.ghostty;
     enableBashIntegration = true;
-    settings = {
-      theme = "light:TokyoNight Day,dark:TokyoNight";
-      font-family = "JetBrainsMono Nerd Font Mono";
-      font-size = "14";
-
-      window-width = "132";
-      window-height = "28";
-
-      cursor-style = "bar";
-
-      shell-integration-features = "no-cursor";
-    };
   };
 
   programs.neovim = {
@@ -97,6 +85,10 @@ in
       source = config_dotfiles "${dotfiles}/bat";
       recursive = true;
     };
+    "eza/theme.yml" = {
+      source = config_dotfiles "${dotfiles}/eza-theme.yml";
+      recursive = false;
+    };
     "mc/ini" = {
       source = config_dotfiles "${dotfiles}/mc/ini";
       recursive = false;
@@ -105,8 +97,8 @@ in
       source = config_dotfiles "${dotfiles}/starship.toml";
       recursive = false;
     };
-    "eza/theme.yml" = {
-      source = config_dotfiles "${dotfiles}/eza-theme.yml";
+    "ghostty/config" = {
+      source = config_dotfiles "${dotfiles}/ghostty";
       recursive = false;
     };
     "nvim" = {
