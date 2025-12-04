@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 
 let
   user = "levenrok";
@@ -87,36 +87,44 @@ in
 
   programs.steam = {
     enable = true;
-    gamescopeSession.enable = true;
   };
 
   programs.gamemode.enable = true;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     vim
     git
-    wget
     curl
 
     gcc
+    gnumake
+
+    figlet
+    mc
+    wl-clipboard
+
+    google-chrome
+    vlc
+    spotify
+    discord
+    aseprite
+  ]) ++ (with pkgs.unstable; [
     go-task
 
     ripgrep
-    figlet
     fzf
-    mc
+    zoxide
     eza
     bat
-    wl-clipboard
     fastfetch
 
-    google-chrome
-    spotify
-  ];
+    lazygit
+  ]);
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
+  fonts.packages = with pkgs;
+    [
+      nerd-fonts.jetbrains-mono
+    ];
 
   nix = {
     settings.experimental-features = [ "nix-command" "flakes" ];

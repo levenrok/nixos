@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 let
   user = "levenrok";
   home = "/home/${user}";
@@ -19,7 +19,7 @@ in
       dbgate
 
       protonup
-    ]) ++ (with pkgs-unstable; [
+    ]) ++ (with pkgs.unstable; [
       opencode
     ]);
     sessionVariables = {
@@ -53,12 +53,12 @@ in
 
   programs.starship = {
     enable = true;
-    package = pkgs-unstable.starship;
+    package = pkgs.unstable.starship;
   };
 
   programs.ghostty = {
     enable = true;
-    package = pkgs-unstable.ghostty;
+    package = pkgs.unstable.ghostty;
     enableBashIntegration = true;
   };
 

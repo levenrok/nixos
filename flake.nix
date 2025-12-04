@@ -16,18 +16,19 @@
       user = "levenrok";
 
       desktop-system = "x86_64-linux";
-
-      pkgs = system: nixpkgs.legacyPackages.${system};
-      pkgs-unstable = system: nixpkgs-unstable.legacyPackages.${system};
     in
     {
       nixosConfigurations = {
         levens-desktop = nixpkgs.lib.nixosSystem {
           system = desktop-system;
-          specialArgs = {
-            pkgs-unstable = pkgs-unstable desktop-system;
-          };
           modules = [
+            {
+              nixpkgs.overlays = [
+                (final: prev: {
+                  unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+                })
+              ];
+            }
             ./system/desktop/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -36,9 +37,6 @@
                 useUserPackages = true;
                 users.${user} = import ./system/desktop/home-manager/home.nix;
                 backupFileExtension = "backup";
-                extraSpecialArgs = {
-                  pkgs-unstable = pkgs-unstable desktop-system;
-                };
               };
             }
           ];
