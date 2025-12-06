@@ -117,8 +117,6 @@ in
     eza
     bat
     fastfetch
-
-    lazygit
   ]);
 
   fonts.packages = with pkgs;

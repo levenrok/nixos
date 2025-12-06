@@ -16,11 +16,13 @@ in
     username = "${user}";
     homeDirectory = "${home}";
     packages = (with pkgs; [
-      dbgate
-
       protonup
     ]) ++ (with pkgs.unstable; [
+      lazygit
+      lazydocker
       opencode
+
+      dbgate
     ]);
     sessionVariables = {
       STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
@@ -47,6 +49,7 @@ in
     extensions = [
       { package = pkgs.gnomeExtensions.appindicator; }
       { package = pkgs.gnomeExtensions.dash-to-dock; }
+      { package = pkgs.gnomeExtensions.blur-my-shell; }
       { package = pkgs.gnomeExtensions.tophat; }
     ];
   };
@@ -78,6 +81,13 @@ in
       stylua
       shfmt
     ];
+  };
+
+  home.file = {
+    ".bashrc".source = config_dotfiles "${dotfiles}/.bashrc";
+    ".bash_aliases".source = config_dotfiles "${dotfiles}/.bash_aliases";
+    ".inputrc".source = config_dotfiles "${dotfiles}/.inputrc";
+    ".gitconfig".source = config_dotfiles "${dotfiles}/.gitconfig";
   };
 
   xdg.configFile = {

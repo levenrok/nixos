@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   programs.vscode = {
     enable = true;
@@ -12,6 +12,7 @@
         "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
         "editor.fontLigatures" = true;
         "editor.formatOnSave" = true;
+        "editor.lineNumbers" = "relative";
         "editor.linkedEditing" = true;
         "editor.minimap.enabled" = false;
         "emmet.includeLanguages" = {
