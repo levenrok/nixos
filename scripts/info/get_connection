@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# 1. Attempt to get the SSID
+# -t (terse) -f (fields) returns only the SSID of the active connection
+WIFI_SSID=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2)
+
+# 2. Check Ethernet state
+# Filters for any ethernet device that is currently "connected"
+ETH_CONNECTED=$(nmcli dev | grep "ethernet" | grep " connected")
+
+if [ -n "$WIFI_SSID" ]; then
+	# Output SSID if connected to Wi-Fi
+	echo " $WIFI_SSID"
+elif [ -n "$ETH_CONNECTED" ]; then
+	# Output Ethernet if Wi-Fi is down but cable is in
+	echo "󰈀 Ethernet"
+else
+	# Fallback for all other states
+	echo "󰖪 Offline"
+fi

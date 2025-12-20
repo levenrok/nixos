@@ -34,6 +34,12 @@ in
     graphics.enable = true;
   };
 
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -69,6 +75,14 @@ in
             options = [ "NOPASSWD" ];
           }
           {
+            command = "${bin}/systemctl poweroff";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "${bin}/systemctl reboot";
+            options = [ "NOPASSWD" ];
+          }
+          {
             command = "${bin}/systemctl status *";
             options = [ "NOPASSWD" ];
           }
@@ -80,6 +94,9 @@ in
       }
     ];
   };
+
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.hyprlock.enableGnomeKeyring = true;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -100,8 +117,10 @@ in
     gnumake
 
     figlet
-    mc
+    xclip
+    xsel
     wl-clipboard
+    libnotify
 
     google-chrome
     vlc
@@ -110,13 +129,25 @@ in
     aseprite
   ]) ++ (with pkgs.unstable; [
     go-task
+    jq
 
     ripgrep
+    fd
     fzf
     zoxide
     eza
     bat
     fastfetch
+
+    hyprpaper
+    hyprcursor
+    hypridle
+    hyprlock
+    rofi
+    quickshell
+    swaynotificationcenter
+    swayosd
+    playerctl
   ]);
 
   fonts.packages = with pkgs;

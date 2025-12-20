@@ -51,6 +51,7 @@ in
       { package = pkgs.gnomeExtensions.dash-to-dock; }
       { package = pkgs.gnomeExtensions.blur-my-shell; }
       { package = pkgs.gnomeExtensions.tophat; }
+      { package = pkgs.gnomeExtensions.gsconnect; }
     ];
   };
 
@@ -76,6 +77,7 @@ in
       taplo
       docker-language-server
       nginx-language-server
+      vscode-langservers-extracted
       # Formatter
       nixpkgs-fmt
       stylua
@@ -99,9 +101,33 @@ in
       source = config_dotfiles "${dotfiles}/eza-theme.yml";
       recursive = false;
     };
-    "mc/ini" = {
-      source = config_dotfiles "${dotfiles}/mc/ini";
+    "fastfetch" = {
+      source = config_dotfiles "${dotfiles}/fastfetch";
       recursive = false;
+    };
+    "hypr" = {
+      source = config_dotfiles "${dotfiles}/hypr";
+      recursive = true;
+    };
+    "uwsm" = {
+      source = config_dotfiles "${dotfiles}/uwsm";
+      recursive = true;
+    };
+    "swaync" = {
+      source = config_dotfiles "${dotfiles}/swaync";
+      recursive = true;
+    };
+    "swayosd" = {
+      source = config_dotfiles "${dotfiles}/swayosd";
+      recursive = true;
+    };
+    "rofi" = {
+      source = config_dotfiles "${dotfiles}/rofi";
+      recursive = true;
+    };
+    "quickshell" = {
+      source = config_dotfiles "${dotfiles}/quickshell";
+      recursive = true;
     };
     "starship.toml" = {
       source = config_dotfiles "${dotfiles}/starship.toml";

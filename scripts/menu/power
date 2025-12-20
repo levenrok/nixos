@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+dir="$HOME/.config/rofi/powermenu/"
+theme='theme'
+
+uptime="$(uptime -p | sed -e 's/up //g' | sed -e 's/hour/hr/g' | sed -e 's/minute/min/g')"
+
+shutdown=' Shutdown'
+reboot='⟳ Reboot'
+lock='󰌾 Lock'
+suspend='󰤄 Suspend'
+logout=' Logout'
+yes='󰩐 Yes'
+no='󰜺 No'
+
+rofi_cmd() {
+	rofi -dmenu \
+		-p " $USER" \
+		-mesg " Uptime: $uptime" \
+		-theme "${dir}"/${theme}.rasi
+}
+
+confirm_cmd() {
+	rofi -markup-rows -dmenu \
+		-p 'Confirmation' \
+		-mesg 'Are you Sure?' \
+		-u 1 \
+		-theme "${dir}"/confirmation.rasi
+}
+
+confirm_exit() {
+	echo -e "$yes\n$no" | confirm_cmd
+}
+
+run_rofi() {
+	echo -e "$lock\n$suspend\n$logout\n$shutdown\n$reboot" | rofi_cmd
+}
+
+run_cmd() {
+	selected="$(confirm_exit)"
+	echo "$selected"
+	if [[ "$selected" =~ $yes ]]; then
+		if [[ $1 == '--shutdown' ]]; then
+			systemctl poweroff
+		elif [[ $1 == '--reboot' ]]; then
+			systemctl reboot
+		elif [[ $1 == '--suspend' ]]; then
+			systemctl suspend
+		elif [[ $1 == '--logout' ]]; then
+			command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
+		fi
+	else
+		exit 0
+	fi
+}
+
+chosen="$(run_rofi)"
+case ${chosen} in
+$shutdown)
+	run_cmd --shutdown
+	;;
+$reboot)
+	run_cmd --reboot
+	;;
+$lock)
+	hyprlock
+	;;
+$suspend)
+	run_cmd --suspend
+	;;
+$logout)
+	run_cmd --logout
+	;;
+esac
