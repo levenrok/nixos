@@ -5,11 +5,11 @@ CURRENT_MODE=$(gsettings get org.gnome.desktop.interface color-scheme)
 if [ "$CURRENT_MODE" = "'prefer-dark'" ]; then
 	NEW_MODE="prefer-light"
 	GTK_THEME="Adwaita"
-	notify-send -a "Toggle Theme" -i "$HOME/.local/bin/scripts/assets/toggle_theme.png" "Light Mode" "On" -u "Low"
+	notify-send -a "Toggle Theme" -i "$HOME/.local/bin/scripts/assets/toggle_theme.png" -u low "Light Mode" "On"
 else
 	NEW_MODE="prefer-dark"
 	GTK_THEME="Adwaita-dark"
-	notify-send -a "Toggle Theme" -i "$HOME/.local/bin/scripts/assets/toggle_theme.png" "Dark Mode" "On" -u "Low"
+	notify-send -a "Toggle Theme" -i "$HOME/.local/bin/scripts/assets/toggle_theme.png" -u low "Dark Mode" "On"
 fi
 
 gsettings set org.gnome.desktop.interface color-scheme "$NEW_MODE"
