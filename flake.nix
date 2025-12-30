@@ -2,49 +2,52 @@
   description = "NixOS/Home-Manager Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, flake-utils, ... }:
     let
       user = "levenrok";
-
-      desktop-system = "x86_64-linux";
     in
     {
       nixosConfigurations = {
-        levens-desktop = nixpkgs.lib.nixosSystem {
-          system = desktop-system;
-          modules = [
-            {
-              nixpkgs.overlays = [
-                (final: prev: {
-                  unstable = nixpkgs-unstable.legacyPackages.${prev.system};
-                })
-              ];
-            }
-            ./system/desktop/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${user} = import ./system/desktop/home-manager/home.nix;
-                backupFileExtension = "backup";
-              };
-            }
-          ];
-        };
-      };
-
-      formatter = nixpkgs.lib.genAttrs nixpkgs.lib.platforms.linux (
-        system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt
-      );
+        levens-desktop = nixpkgs.lib.nixosSystem
+          {
+            specialArgs = { inherit user nixpkgs-unstable; };
+            modules = [
+              ({ config, ... }: {
+                nixpkgs.overlays = [
+                  (final: prev: {
+                    unstable = import nixpkgs-unstable {
+                      system = prev.system;
+                      config.allowUnfree = true;
+                    };
+                  })
+                ];
+              })
+              ./system/desktop/configuration.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.${user} = import ./system/desktop/home-manager/home.nix;
+                  backupFileExtension = "backup";
+                };
+              }
+            ];
+          };
+      } //
+      flake-utils.lib.eachDefaultSystem (system: {
+        formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+      });
     };
 }

@@ -84,19 +84,6 @@
         usernamehw.errorlens
         vscodevim.vim
         xdebug.php-debug
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "vscode-laravel";
-          publisher = "laravel";
-          version = "1.2.1";
-          sha256 = "8e8eaae632543ccf366c32babf68271f41d46cab12b7d0d245a743e6bdbb45ed";
-        }
-        {
-          name = "vscode-blade-formatter";
-          publisher = "shufo";
-          version = "0.26.2";
-          sha256 = "a7449e76198004f4972973b89d9e98536cbf2081b1c3382d7d703003ba25873e";
-        }
       ];
     };
   };

@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
-  user = "levenrok";
-  host = "levens-desktop";
+  username = "levenrok";
+  hostname = "levens-desktop";
 
   bin = "/run/current-system/sw/bin";
 in
@@ -10,6 +10,9 @@ in
   imports =
     [
       ./hardware-configuration.nix
+
+      ./../../modules/ui/hyprland.nix
+      ./../../modules/ui/gnome.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -18,7 +21,7 @@ in
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "${host}";
+  networking.hostName = "${hostname}";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Colombo";
@@ -27,17 +30,8 @@ in
 
   services.xserver.enable = true;
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
   hardware = {
     graphics.enable = true;
-  };
-
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
   };
 
   services.xserver.xkb = {
@@ -58,7 +52,7 @@ in
 
   virtualisation.docker.enable = true;
 
-  users.users.${user} = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Leven Rochana";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
@@ -95,16 +89,10 @@ in
     ];
   };
 
-  security.pam.services.gdm.enableGnomeKeyring = true;
-  security.pam.services.hyprlock.enableGnomeKeyring = true;
-
+  nixpkgs.hostPlatform = { system = "x86_64-linux"; };
   nixpkgs.config.allowUnfree = true;
 
   programs.firefox.enable = false;
-
-  programs.steam = {
-    enable = true;
-  };
 
   programs.gamemode.enable = true;
 
@@ -113,47 +101,22 @@ in
     git
     curl
 
-    gcc
-    gnumake
-
     figlet
-    xclip
-    xsel
     wl-clipboard
     libnotify
 
     google-chrome
     vlc
+    localsend
     spotify
     discord
     aseprite
-  ]) ++ (with pkgs.unstable; [
-    go-task
-    jq
-
-    ripgrep
-    fd
-    fzf
-    zoxide
-    eza
-    bat
-    fastfetch
-
-    hyprpaper
-    hyprcursor
-    hypridle
-    hyprlock
-    rofi
-    quickshell
-    swaynotificationcenter
-    swayosd
-    playerctl
   ]);
 
-  fonts.packages = with pkgs;
-    [
-      nerd-fonts.jetbrains-mono
-    ];
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.departure-mono
+  ];
 
   nix = {
     settings.experimental-features = [ "nix-command" "flakes" ];
