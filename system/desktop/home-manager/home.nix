@@ -12,7 +12,7 @@ in
     ./../../../modules/tools.nix
 
     ./../../../modules/editor/neovim.nix
-    ./../../../modules/editor/zed.nix
+    ./../../../modules/editor/emacs.nix
     ./../../../modules/editor/vscode.nix
 
     ./../../../modules/config/tools.nix
