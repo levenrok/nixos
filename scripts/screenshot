@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
+MONITOR=$(hyprctl activeworkspace -j | jq -r '.monitor')
+
 SAVE_NAME="$(date +%Y-%b-%d_%H-%M-%S).png"
 SAVE_DIR="$HOME/Pictures/Screenshots"
 
 case $1 in
 "all")
-	grim "$SAVE_DIR/$SAVE_NAME"
+	grim -o "$MONITOR" "$SAVE_DIR/$SAVE_NAME"
 	notify-send -a "Maim" -i "$SAVE_DIR/$SAVE_NAME" -u critical "Screenshot Saved" "Saved to $SAVE_DIR as $SAVE_NAME"
 	;;
 "copy")
-	grim - | wl-copy
+	grim -o "$MONITOR" - | wl-copy
 	notify-send -a "Maim" -u critical "Screenshot Copied" "Copied to Clipboard"
 	;;
 "select")
-	grim -g "$(slurp)" "$SAVE_DIR/$SAVE_NAME"
+	grim -o "$MONITOR" -g "$(slurp)" "$SAVE_DIR/$SAVE_NAME"
 	notify-send -a "Maim" -i "$SAVE_DIR/$SAVE_NAME" -u critical "Screenshot Saved" "Saved to $SAVE_DIR as $SAVE_NAME"
 	;;
 *) exit 1 ;;
