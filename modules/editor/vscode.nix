@@ -53,7 +53,10 @@
         };
         "vim.normalModeKeyBindingsNonRecursive" = [
           {
-            "before" = [ "leader" "e" ];
+            "before" = [
+              "leader"
+              "e"
+            ];
             "commands" = [ "workbench.view.explorer" ];
           }
           {

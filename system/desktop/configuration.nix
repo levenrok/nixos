@@ -7,13 +7,12 @@ let
   bin = "/run/current-system/sw/bin";
 in
 {
-  imports =
-    [
-      ./hardware-configuration.nix
+  imports = [
+    ./hardware-configuration.nix
 
-      ./../../modules/ui/hyprland.nix
-      ./../../modules/ui/gnome.nix
-    ];
+    ./../../modules/ui/hyprland.nix
+    ./../../modules/ui/gnome.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 7;
@@ -55,7 +54,11 @@ in
   users.users.${username} = {
     isNormalUser = true;
     description = "Leven Rochana";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
   };
 
   security.sudo = {
@@ -89,29 +92,35 @@ in
     ];
   };
 
-  nixpkgs.hostPlatform = { system = "x86_64-linux"; };
+  nixpkgs.hostPlatform = {
+    system = "x86_64-linux";
+  };
   nixpkgs.config.allowUnfree = true;
 
   programs.firefox.enable = false;
 
   programs.gamemode.enable = true;
 
-  environment.systemPackages = (with pkgs; [
-    vim
-    git
-    curl
+  environment.systemPackages = (
+    with pkgs;
+    [
+      vim
+      git
+      curl
 
-    figlet
-    wl-clipboard
-    libnotify
+      figlet
+      wl-clipboard
+      libnotify
 
-    google-chrome
-    vlc
-    localsend
-    spotify
-    discord
-    aseprite
-  ]);
+      google-chrome
+      vlc
+      localsend
+      protonvpn-gui
+      spotify
+      discord
+      aseprite
+    ]
+  );
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -119,7 +128,10 @@ in
   ];
 
   nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     settings.auto-optimise-store = true;
     gc = {
       automatic = true;

@@ -1,13 +1,15 @@
 { pkgs, ... }:
 {
   home.packages =
-    (with pkgs;[
+    (with pkgs; [
       bash-language-server
 
       shfmt
       shellcheck
-    ]) ++ (with pkgs.unstable;[
+    ])
+    ++ (with pkgs.unstable; [
       clang
+      pandoc
 
       just
 
@@ -22,6 +24,7 @@
       fastfetch
       lazygit
       lazydocker
+      gemini-cli
       opencode
 
       firefox-devedition

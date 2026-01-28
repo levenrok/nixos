@@ -1,4 +1,9 @@
-{ pkgs, dotfilesPath, configDotfiles, ... }:
+{
+  pkgs,
+  dotfilesPath,
+  configDotfiles,
+  ...
+}:
 {
   programs.emacs = {
     enable = true;
