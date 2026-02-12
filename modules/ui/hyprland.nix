@@ -13,7 +13,6 @@
     hyprcursor
     hypridle
     hyprlock
-    sunsetr
     rofi
     quickshell
     grim

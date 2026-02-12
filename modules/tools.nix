@@ -28,6 +28,7 @@
       opencode
 
       firefox-devedition
+      tor-browser
       dbgate
     ]);
 
