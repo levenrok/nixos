@@ -59,6 +59,9 @@ in
     };
   };
 
+  programs.localsend.enable = true;
+  programs.localsend.openFirewall = true;
+
   systemd = {
     services.tailscaled.serviceConfig.Environment = [
       "TS_DEBUG_FIREWALL_MODE=nftables"
@@ -74,6 +77,7 @@ in
     isNormalUser = true;
     description = "Leven Rochana";
     extraGroups = [
+      "dialout"
       "networkmanager"
       "wheel"
       "docker"
@@ -133,7 +137,6 @@ in
 
       google-chrome
       vlc
-      localsend
       protonvpn-gui
       spotify
       discord
