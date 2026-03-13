@@ -2,7 +2,11 @@
 {
   home.packages =
     (with pkgs; [
+      python3
+      uv
+
       bash-language-server
+      basedpyright
 
       shfmt
       shellcheck
