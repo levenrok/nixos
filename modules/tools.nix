@@ -12,9 +12,9 @@
       shellcheck
     ])
     ++ (with pkgs.unstable; [
-      clang
-      pandoc
+      nixfmt
 
+      clang
       just
 
       zoxide

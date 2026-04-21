@@ -16,6 +16,7 @@
       taplo
       vscode-langservers-extracted
 
+      just-lsp
       cmake-language-server
       docker-language-server
       nginx-language-server
