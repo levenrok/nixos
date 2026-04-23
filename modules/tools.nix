@@ -10,6 +10,7 @@
 
       shfmt
       shellcheck
+      ruff
     ])
     ++ (with pkgs.unstable; [
       nixfmt
