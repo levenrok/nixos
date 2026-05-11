@@ -7,6 +7,7 @@
 
       bash-language-server
       basedpyright
+      vscode-langservers-extracted
 
       shfmt
       shellcheck

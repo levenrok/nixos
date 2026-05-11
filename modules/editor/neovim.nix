@@ -14,7 +14,6 @@
 
       yaml-language-server
       taplo
-      vscode-langservers-extracted
 
       just-lsp
       cmake-language-server
