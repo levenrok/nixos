@@ -17,6 +17,7 @@ in
 
     ./../../../modules/config/tools.nix
     ./../../../modules/config/hyprland.nix
+    ./../../../modules/config/gnome.nix
   ];
 
   _module.args = {
